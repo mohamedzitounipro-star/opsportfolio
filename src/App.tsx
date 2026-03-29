@@ -27,15 +27,19 @@ interface Translation {
   };
   skills: {
     title: string;
+    subtitle: string;
+    toolsTitle: string;
     items: string[];
   };
   stats: Stat[];
   experience: {
     title: string;
+    subtitle: string;
     items: Experience[];
   };
   contact: {
     title: string;
+    subtitle: string;
     desc: string;
     email: string;
     phone: string;
@@ -46,6 +50,10 @@ interface Translation {
     skills: string;
     contact: string;
   };
+  ui: {
+    contactMe: string;
+  };
+  tools: { name: string; category: string }[];
 }
 
 // --- DATA ---
@@ -59,6 +67,8 @@ const t: Record<'fr' | 'en', Translation> = {
     },
     skills: {
       title: "Domaines d'expertise",
+      subtitle: "Compétences clés & Outils",
+      toolsTitle: "Outils",
       items: [
         "Gestion des Opérations", "Management de Projet", "Relation Client B2B/B2C", 
         "Stratégie Digitale", "Gestion de Projets Web", "Analyse de Données", 
@@ -72,6 +82,7 @@ const t: Record<'fr' | 'en', Translation> = {
     ],
     experience: {
       title: "Parcours Professionnel",
+      subtitle: "Historique professionnel détaillé",
       items: [
         {
           date: "2024 — PRÉSENT",
@@ -101,6 +112,7 @@ const t: Record<'fr' | 'en', Translation> = {
     },
     contact: {
       title: "Prêt à relever un nouveau défi ?",
+      subtitle: "Discutons de votre prochain projet",
       desc: "À la recherche d'une nouvelle opportunité (Opérations, Admin, Digital, Management). Prêt à m'investir pleinement.",
       email: "Email",
       phone: "07 62 05 51 90"
@@ -110,7 +122,18 @@ const t: Record<'fr' | 'en', Translation> = {
       exp: "Expériences",
       skills: "Compétences",
       contact: "Contact"
-    }
+    },
+    ui: {
+      contactMe: "Me contacter"
+    },
+    tools: [
+      { name: "Monday", category: "Gestion de Projet" },
+      { name: "Notion", category: "Productivité" },
+      { name: "Make", category: "Automatisation" },
+      { name: "Figma", category: "Design / UI" },
+      { name: "Shopify / WP / Stripe", category: "E-commerce & Web" },
+      { name: "Google Analytics", category: "Data / Analytics" },
+    ]
   },
   en: {
     role: "Operations, Projects & Digital Strategy",
@@ -121,6 +144,8 @@ const t: Record<'fr' | 'en', Translation> = {
     },
     skills: {
       title: "Areas of Expertise",
+      subtitle: "Key skills & Tools",
+      toolsTitle: "Tools",
       items: [
         "Operations Management", "Project Management", "B2B/B2C Client Relations", 
         "Digital Strategy", "Web Project Management", "Data Analysis", 
@@ -134,6 +159,7 @@ const t: Record<'fr' | 'en', Translation> = {
     ],
     experience: {
       title: "Professional Journey",
+      subtitle: "Detailed professional history",
       items: [
         {
           date: "2024 — PRESENT",
@@ -163,6 +189,7 @@ const t: Record<'fr' | 'en', Translation> = {
     },
     contact: {
       title: "Ready for a new challenge?",
+      subtitle: "Let's discuss your next project",
       desc: "Looking for a new professional opportunity (Operations, Admin, Digital, Management). Ready to fully commit.",
       email: "Email",
       phone: "07 62 05 51 90"
@@ -172,19 +199,23 @@ const t: Record<'fr' | 'en', Translation> = {
       exp: "Experience",
       skills: "Skills",
       contact: "Contact"
-    }
+    },
+    ui: {
+      contactMe: "Contact me"
+    },
+    tools: [
+      { name: "Monday", category: "Project Management" },
+      { name: "Notion", category: "Productivity" },
+      { name: "Make", category: "Automation" },
+      { name: "Figma", category: "Design / UI" },
+      { name: "Shopify / WP / Stripe", category: "E-commerce & Web" },
+      { name: "Google Analytics", category: "Data / Analytics" },
+    ]
   }
 };
 
 // --- TOOLS DATA ---
-const TOOLS = [
-  { name: "Monday", category: "Gestion de Projet" },
-  { name: "Notion", category: "Productivité" },
-  { name: "Make", category: "Automatisation" },
-  { name: "Figma", category: "Design / UI" },
-  { name: "Shopify / WP / Stripe", category: "E-commerce & Web" },
-  { name: "Google Analytics", category: "Data / Analytics" },
-];
+// Removed as it is now inside the Translation object
 
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -388,7 +419,7 @@ export default function App() {
               </header>
               
               {/* About Section (Moved up for mobile) */}
-              <div className="bg-surface border border-ink/10 p-5 md:p-6 rounded-2xl shadow-sm">
+              <div className="bg-surface border border-accent/20 p-5 md:p-6 rounded-2xl shadow-sm">
                 <h3 className="text-lg font-bold mb-3 flex items-center"><Layers className="mr-3 text-accent" size={20} /> {currentT.about.title}</h3>
                 <p className="text-ink/80 leading-relaxed text-base">{currentT.about.text}</p>
               </div>
@@ -396,7 +427,7 @@ export default function App() {
               {/* Stats Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {currentT.stats.map((stat: Stat, i: number) => (
-                  <div key={i} className="bg-surface border border-ink/10 p-4 md:p-5 rounded-2xl shadow-sm flex flex-col justify-center">
+                  <div key={i} className="bg-surface border border-accent/20 p-4 md:p-5 rounded-2xl shadow-sm flex flex-col justify-center">
                     <p className="text-xs font-bold text-ink/50 uppercase tracking-wider mb-1">{stat.label}</p>
                     <p className="text-2xl md:text-3xl font-display font-bold text-accent">{stat.val}</p>
                   </div>
@@ -409,9 +440,9 @@ export default function App() {
                   <MapPin className="text-accent mr-3 shrink-0" size={20} />
                   <span className="font-medium text-ink/80 text-sm md:text-base">Paris, France (Mobile international)</span>
                 </div>
-                <a href="mailto:mohamedzitouni.pro@gmail.com" className="px-6 py-2.5 bg-accent text-bg rounded-xl font-bold text-sm hover:shadow-md transition-all whitespace-nowrap">
-                  Me contacter
-                </a>
+                <button onClick={() => setActiveTab('contact')} className="px-6 py-2.5 bg-accent text-bg rounded-xl font-bold text-sm hover:shadow-md transition-all whitespace-nowrap">
+                  {currentT.ui.contactMe}
+                </button>
               </div>
             </motion.div>
           )}
@@ -421,12 +452,12 @@ export default function App() {
             <motion.div key="experience" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6 my-auto w-full py-4">
               <header className="mb-6 md:mb-8">
                 <h2 className="text-3xl md:text-4xl font-display font-bold mb-2">{currentT.experience.title}</h2>
-                <p className="text-ink/60 text-lg">Historique professionnel détaillé</p>
+                <p className="text-ink/60 text-lg">{currentT.experience.subtitle}</p>
               </header>
               
               <div className="space-y-4">
                 {currentT.experience.items.map((exp: Experience, i: number) => (
-                  <div key={i} className="bg-surface border border-accent/20 md:border-ink/10 p-6 rounded-2xl shadow-sm flex flex-col md:flex-row gap-4 md:gap-6 md:hover:border-accent/30 transition-colors group">
+                  <div key={i} className="bg-surface border border-accent/20 p-6 rounded-2xl shadow-sm flex flex-col md:flex-row gap-4 md:gap-6 hover:border-accent/40 transition-colors group">
                     <div className="md:w-56 shrink-0">
                       <span className="inline-block px-3 py-1 bg-accent/10 text-accent md:bg-ink/5 md:text-ink/70 text-xs font-bold rounded-lg mb-2 md:group-hover:bg-accent/10 md:group-hover:text-accent transition-colors">{exp.date}</span>
                       <p className="text-sm font-bold text-ink/60 uppercase tracking-wider">{exp.company}</p>
@@ -446,15 +477,15 @@ export default function App() {
             <motion.div key="skills" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6 my-auto w-full py-4">
               <header className="mb-6 md:mb-8">
                 <h2 className="text-3xl md:text-4xl font-display font-bold mb-2">{currentT.skills.title}</h2>
-                <p className="text-ink/60 text-lg">Compétences clés & Outils</p>
+                <p className="text-ink/60 text-lg">{currentT.skills.subtitle}</p>
               </header>
               
-              {/* Skills Grid - Audit: Paddings réduits pour éviter le scroll vertical */}
-              <div className="bg-surface border border-ink/10 p-6 rounded-2xl shadow-sm mb-6">
+              {/* Skills Grid */}
+              <div className="bg-surface border border-accent/20 p-6 rounded-2xl shadow-sm mb-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                   {currentT.skills.items.map((skill: string, i: number) => (
-                    <div key={i} className="group flex items-center p-3 md:p-4 border border-ink/5 rounded-xl bg-bg hover:border-accent/40 hover:bg-accent/5 hover:-translate-y-1 hover:shadow-md transition-all duration-300 cursor-default">
-                      <CheckCircle2 size={18} className="text-accent mr-3 shrink-0 transition-transform duration-300 group-hover:scale-125" />
+                    <div key={i} className="group flex items-center p-3 md:p-4 border border-accent/20 rounded-xl bg-bg hover:border-accent/40 hover:bg-accent/5 transition-colors duration-300 cursor-default">
+                      <CheckCircle2 size={18} className="text-accent mr-3 shrink-0 transition-colors duration-300" />
                       <span className="text-sm font-medium transition-colors duration-300 group-hover:text-accent">{skill}</span>
                     </div>
                   ))}
@@ -462,11 +493,11 @@ export default function App() {
               </div>
 
               {/* Tools Stack */}
-              <div className="bg-surface border border-ink/10 p-6 rounded-2xl shadow-sm">
-                <h3 className="text-lg font-bold mb-4 flex items-center"><Code className="mr-3 text-accent" size={20} /> Outils</h3>
+              <div className="bg-surface border border-accent/20 p-6 rounded-2xl shadow-sm">
+                <h3 className="text-lg font-bold mb-4 flex items-center"><Code className="mr-3 text-accent" size={20} /> {currentT.skills.toolsTitle}</h3>
                 <div className="flex flex-wrap gap-2 md:gap-3">
-                  {TOOLS.map((tool, i) => (
-                    <div key={i} className="flex flex-col px-4 py-2 bg-bg border border-ink/5 rounded-lg hover:border-accent/30 transition-colors cursor-default">
+                  {currentT.tools.map((tool, i) => (
+                    <div key={i} className="flex flex-col px-4 py-2 bg-bg border border-accent/20 rounded-lg hover:border-accent/40 transition-colors cursor-default">
                       <span className="text-sm font-bold">{tool.name}</span>
                       <span className="text-[10px] uppercase tracking-wider text-ink/50">{tool.category}</span>
                     </div>
@@ -481,7 +512,7 @@ export default function App() {
             <motion.div key="contact" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-6 my-auto w-full py-4">
               <header className="mb-6 md:mb-8">
                 <h2 className="text-3xl md:text-4xl font-display font-bold mb-2">{currentT.nav.contact}</h2>
-                <p className="text-ink/60 text-lg">Discutons de votre prochain projet</p>
+                <p className="text-ink/60 text-lg">{currentT.contact.subtitle}</p>
               </header>
 
               {/* Contact Call to Action */}
