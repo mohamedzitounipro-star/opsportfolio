@@ -47,14 +47,6 @@
     @apply transition-colors duration-200;
   }
   
-  .will-change-transform {
-    will-change: transform;
-  }
-
-  .will-change-opacity {
-    will-change: opacity;
-  }
-  
   h1 {
     @apply font-display uppercase leading-[0.85] tracking-tighter;
   }
@@ -69,82 +61,10 @@
   transition: none !important;
 }
 
-/* Magazine Layout Utilities */
-.glass {
-  @apply backdrop-blur-md bg-bg/90 border-b border-ink/5;
-  transform: translateZ(0);
-}
-
-.section-divider {
-  @apply border-t border-ink/10;
-}
-
-.big-number {
-  @apply absolute -top-12 -left-4 md:-left-8 font-display text-[15vw] leading-none text-ink/5 pointer-events-none select-none -z-10;
-}
-
-.text-reveal-container {
-  @apply relative overflow-hidden;
-}
-
-/* Automotive specific styles */
-.car-glow {
-  @apply absolute -z-10 opacity-20 rounded-full bg-accent;
-  filter: blur(80px);
-  transform: translateZ(0);
-}
-
-.speed-line {
-  @apply h-px bg-gradient-to-r from-transparent via-accent to-transparent w-full opacity-30;
-}
-
-.magazine-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 1.5rem;
-}
-
-.vertical-text {
-  writing-mode: vertical-rl;
-  @apply uppercase tracking-[0.5em] text-[10px] font-bold text-muted rotate-180;
-}
-
-/* Animations */
-@keyframes speed-blur {
-  0% { transform: translateX(-100%); opacity: 0; }
-  50% { opacity: 0.5; }
-  100% { transform: translateX(100%); opacity: 0; }
-}
-
-.animate-speed {
-  animation: speed-blur 3s linear infinite;
-}
-
-.title-underline {
-  @apply relative inline-block;
-}
-
-.title-underline::after {
-  content: '';
-  @apply absolute bottom-0 left-0 w-0 h-[4px] bg-accent transition-all duration-700;
-}
-
-.group:hover .title-underline::after {
-  @apply w-full;
-}
-
-.carbon-pattern {
-  background-image: radial-gradient(var(--theme-pattern) 1px, transparent 0);
-  background-size: 4px 4px;
-}
-
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-@media (pointer: fine) {
 }
